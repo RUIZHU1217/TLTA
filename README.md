@@ -69,8 +69,7 @@ data/
 ```
 
 The manuscript states 800x800 input and batch size 4 for SSDD, and 1024x1024
-input and batch size 2 for HRSID. The resize policy itself is not described;
-this repository uses direct resize and marks it as an implementation detail.
+input and batch size 2 for HRSID. 
 
 ## Training
 

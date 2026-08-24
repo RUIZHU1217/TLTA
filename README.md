@@ -211,28 +211,6 @@ TLTA/
 └── assets/
 ```
 
-## Model architecture and implementation boundaries
 
-The paper fixes the mathematical topology operations and several experimental
-values, but omits channel widths, super-pixel count and convergence tolerance,
-mean-shift bandwidths, Swin depths/window/head settings, adaptive-hyperedge
-counts, anchors, NMS threshold, proposal top-k, transformer depth/query count,
-and ordinary detection-loss coefficients. The YAML files provide conservative,
-editable implementation defaults for these items. They are not claimed as
-paper-original settings.
 
-SPSM is non-differentiable and runs through `scikit-image`; gradients begin at
-the learnable super-pixel feature projection. Dense incidence matrices are used
-for clarity, while HGCB applies vertex-hyperedge-vertex products associatively
-to avoid materializing an `N x N` propagation matrix.
-
-This code has shape/syntax checks, but no reported paper accuracy is claimed
-until full training, dataset-protocol verification, and author-side validation
-have been completed.
-
-## Pretrained weights
-
-Pretrained weights are not included. Pretrained weights will be released after
-verification if they are not currently available. No placeholder checkpoints or
-download links are provided.
 

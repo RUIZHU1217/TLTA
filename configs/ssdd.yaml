@@ -1,0 +1,100 @@
+dataset:
+  name: SSDD
+  root: data/SSDD
+  train_images: images/train
+  val_images: images/test
+  train_annotations: annotations/instances_train.json
+  val_annotations: annotations/instances_test.json
+  image_size: [800, 800]
+  num_classes: 1
+  category_ids: [1]
+
+model:
+  in_channels: 3
+  num_classes: 1
+  # TODO: Not explicitly specified in the paper
+  i_lta_channels: 32
+  # TODO: Not explicitly specified in the paper
+  stage_dims: [64, 128, 256, 512]
+  # TODO: Not explicitly specified in the paper
+  stage_heads: [2, 4, 8, 16]
+  # TODO: Not explicitly specified in the paper
+  stage_depths: [1, 1, 1, 1]
+  # TODO: Not explicitly specified in the paper
+  window_size: 7
+  position_dim: 256
+  # TODO: Not explicitly specified in the paper
+  num_superpixels: 128
+  # TODO: Not explicitly specified in the paper
+  superpixel_compactness: 10.0
+  # TODO: Not explicitly specified in the paper
+  superpixel_max_iter: 10
+  # TODO: Not explicitly specified in the paper
+  sp_bandwidths: [0.5, 1.0, 2.0]
+  # TODO: Not explicitly specified in the paper
+  fa_num_hyperedges: [32, 32, 16, 8]
+  # TODO: Not explicitly specified in the paper
+  fa_heads: [2, 4, 8, 8]
+  # TODO: Not explicitly specified in the paper
+  anchor_sizes: [32, 64, 128]
+  # TODO: Not explicitly specified in the paper
+  anchor_ratios: [0.5, 1.0, 2.0]
+  # TODO: Not explicitly specified in the paper
+  proposal_pre_nms_topk: 1000
+  # TODO: Not explicitly specified in the paper
+  proposal_post_nms_topk: 100
+  # TODO: Not explicitly specified in the paper
+  proposal_nms_threshold: 0.7
+  proposal_iou_threshold: 0.5
+  # TODO: Not explicitly specified in the paper
+  proposal_hypergraph_k: 5
+  # TODO: Not explicitly specified in the paper
+  roi_output_size: 3
+  # TODO: Not explicitly specified in the paper
+  num_queries: 100
+  # TODO: Not explicitly specified in the paper
+  transformer_heads: 8
+  # TODO: Not explicitly specified in the paper
+  encoder_layers: 2
+  # TODO: Not explicitly specified in the paper
+  decoder_layers: 2
+  # TODO: Not explicitly specified in the paper
+  ff_dim: 1024
+  # TODO: Not explicitly specified in the paper
+  dropout: 0.0
+
+cdn_fd:
+  lambda_1: 0.1
+  lambda_2: 0.7
+  gradient_iou_threshold: 0.3
+  negative_threshold: 0.3
+  lambda_reg: 1.0
+  lambda_cls: 2.0
+  lambda_neg: 0.5
+  # TODO: Not explicitly specified in the paper
+  denoising_groups: 1
+
+train:
+  optimizer: SGD
+  epochs: 320
+  learning_rate: 0.04
+  milestones: [280, 300]
+  gamma: 0.1
+  momentum: 0.99
+  nesterov: true
+  weight_decay: 0.005
+  batch_size: 4
+  num_workers: 4
+  seed: 42
+  output_dir: outputs/ssdd
+  log_interval: 20
+  eval_interval: 10
+
+test:
+  batch_size: 1
+  num_workers: 2
+  # TODO: Not explicitly specified in the paper
+  score_threshold: 0.05
+  # TODO: Not explicitly specified in the paper
+  max_detections: 100
+

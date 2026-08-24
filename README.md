@@ -1,7 +1,6 @@
 # TLTA
 
-PyTorch implementation of **"Triple-Level Topology Awareness Using Hypergraph
-for Marine Ship Surveillance from SAR Imagery"**.
+ **"Triple-Level Topology Awareness Using Hypergraph for Marine Ship Surveillance from SAR Imagery"**.
 
 
 

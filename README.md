@@ -20,54 +20,6 @@ TLTA models high-order relationships at three serial levels:
    negative proposal hypergraphs before transformer encoding and contrastive
    denoising feature decoding.
 
-## Overall architecture
-
-
-### Input-Level Topology Awareness (i-LTA)
-
-- `SuperPixelSegmentationModule` implements Algorithm 2 using the stated
-  CIELAB/spatial SLIC distance in Equations (18)-(19), low-gradient center
-  initialization, iterative assignment, and connectivity enforcement.
-- `SuperPixelHyperGraphConstruction` implements the kernel-density and
-  agglomerative mean-shift construction described by Equations (20)-(21), with
-  configurable multi-scale bandwidths.
-- `HyperGraphConvolutionBlock` runs first-order Chebyshev spectral convolution
-  and hyperpath spatial message passing in parallel, concatenates both results,
-  and applies SEB (Equations (3)-(16)).
-- `DenseContextualFeatureExtraction` uses paper-specified dilation factors
-  3, 6, and 12 (Equation (22)).
-- `CrossAttentionCollaborativeNetwork` contains exactly five serial blocks and
-  implements Equations (23)-(24).
-
-### Feature-Level Topology Awareness (f-LTA)
-
-- sine/cosine position encoding uses the paper-specified dimension `d=256`
-  from Equation (17);
-- four serial stages have the order `SwinBlock -> FA-HGC -> HGCB -> VL-FSA ->
-  EL-FSA`, followed by spatial downsampling between stages;
-- `FeatureAdaptiveHyperGraphConstruction` implements pooled context, dynamic
-  global prototypes, multi-head similarity, and continuous incidence from
-  Equations (25)-(27);
-- `VertexLevelFeatureSelfAttention` and `EdgeLevelFeatureSelfAttention`
-  implement Equations (28)-(31).
-
-### Proposal-Level Topology Awareness (p-LTA)
-
-- `ProposalPredictionNetwork` follows the Faster R-CNN RPN-like PPN described
-  in Section 3.6.1: 3x3 feature reduction, regression and FC classification
-  branches, proposal decoding, and NMS;
-- proposal/GT IoU `>=0.5` is positive and `<0.5` is negative, as stated in
-  Algorithm 1;
-- `ProposalGuidedHyperGraphConstruction` contains distinct `PP-HGC` and
-  `NP-HGC` classes and implements cosine similarity, top-k hyperedges, and
-  Equation (34) edge weights;
-- the two hypergraphs are processed by parallel HGCB paths, concatenated,
-  flattened to a fixed-length feature sequence, and passed to the encoder;
-- `ContrastiveDeNoisingFeatureDecoding` uses the exact manuscript thresholds
-  `lambda_1=0.1`, `lambda_2=0.7`, positive-gradient IoU threshold `0.3`, and
-  negative threshold `sigma=0.3`;
-- `CDNFLoss` uses `lambda_reg=1.0`, `lambda_cls=2.0`, and `lambda_neg=0.5`
-  from Equation (38).
 
 ## Installation
 
